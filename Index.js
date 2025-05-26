@@ -1,17 +1,19 @@
 import express from 'express';
 import cors from 'cors';
 import { Pool } from 'pg';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
 app.use(cors());
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'EmptyCup',
-  password: 'Dob@252017',
-  port: 5432,
+  user: process.env.POSTGRES_USER,
+  host: process.env.POSTGRES_HOST,
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD,
+  port: Number(process.env.POSTGRES_PORT),
 });
+
 
 app.get('/', async (req, res) => {
   try {
@@ -24,5 +26,5 @@ app.get('/', async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+  console.log('Server running');
 });
